@@ -38,10 +38,10 @@ Create a `terraform.tfvars` file under `ecs-fargate` folder with the following e
 
 ```hcl
 region                             = "us-east-1"
-kong_cluster_control_plane         = "71bf231d3c.us.cp0.konghq.com:443"
-kong_cluster_server_name           = "71bf231d3c.us.cp0.konghq.com"
-kong_cluster_telemetry_endpoint    = "71bf231d3c.us.tp0.konghq.com:443"
-kong_cluster_telemetry_server_name = "71bf231d3c.us.tp0.konghq.com"
+kong_cluster_control_plane         = "XXX.us.cp0.konghq.com:443"
+kong_cluster_server_name           = "XXX.us.cp0.konghq.com"
+kong_cluster_telemetry_endpoint    = "XXX.us.tp0.konghq.com:443"
+kong_cluster_telemetry_server_name = "XXX.us.tp0.konghq.com"
 availability_zones                 = ["us-east-1a", "us-east-1b"]
 
 kong_cluster_cert_path     = "path_to_tls_crt/tls.crt"
