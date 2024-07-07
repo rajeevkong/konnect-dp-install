@@ -8,6 +8,10 @@
 
 I am using [saml2aws](https://github.com/Versent/saml2aws). The [create](./ecs-fargate/create.sh) and [destroy](./ecs-fargate/destroy.sh) scripts assumes you have 2FA enabled. So please make changes accordingly. 
 
+One thing you will need is the SSO URL for configuring sam2aws. 
+
+> If you know a better way to do run the scripts in an enterprise context then please do share.
+
 ### Kong Konnect Setup
 
 I am assuming that if you are here you know how to register with Konnect, create a control plane. If you dont then please the following two links
