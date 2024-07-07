@@ -4,33 +4,33 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "subnet_ids" {
-  description = "The IDs of the subnets"
+variable "public_subnet_ids" {
+  description = "List of public subnet IDs"
   type        = list(string)
 }
 
-variable "region" {
-  description = "The AWS region"
-  type        = string
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs"
+  type        = list(string)
 }
 
 variable "kong_cluster_cert_arn" {
-  description = "The ARN of the KONG cluster certificate secret"
+  description = "ARN of the Kong cluster certificate secret"
   type        = string
 }
 
 variable "kong_cluster_cert_version_id" {
-  description = "The version ID of the KONG cluster certificate secret"
+  description = "Version ID of the Kong cluster certificate secret"
   type        = string
 }
 
 variable "kong_cluster_cert_key_arn" {
-  description = "The ARN of the KONG cluster certificate key secret"
+  description = "ARN of the Kong cluster certificate key secret"
   type        = string
 }
 
 variable "kong_cluster_cert_key_version_id" {
-  description = "The version ID of the KONG cluster certificate key secret"
+  description = "Version ID of the Kong cluster certificate key secret"
   type        = string
 }
 
@@ -56,6 +56,11 @@ variable "kong_cluster_telemetry_server_name" {
 
 variable "initials" {
   description = "Initials to prepend to the names of all created resources"
+  type        = string
+}
+
+variable "region" {
+  description = "The AWS region"
   type        = string
 }
 

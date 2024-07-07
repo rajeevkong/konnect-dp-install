@@ -1,4 +1,3 @@
-
 provider "aws" {
   region = var.region
 }
@@ -9,6 +8,7 @@ module "vpc" {
   public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
   availability_zones   = var.availability_zones
+  initials             = var.initials
 }
 
 module "secrets" {
@@ -22,7 +22,8 @@ module "ecs" {
   source                             = "./ecs"
   region                             = var.region
   vpc_id                             = module.vpc.vpc_id
-  subnet_ids                         = module.vpc.public_subnet_ids # Use public subnets
+  public_subnet_ids                  = module.vpc.public_subnet_ids
+  private_subnet_ids                 = module.vpc.private_subnet_ids
   kong_cluster_cert_arn              = module.secrets.kong_cluster_cert_arn
   kong_cluster_cert_version_id       = module.secrets.kong_cluster_cert_version_id
   kong_cluster_cert_key_arn          = module.secrets.kong_cluster_cert_key_arn
@@ -33,4 +34,3 @@ module "ecs" {
   kong_cluster_telemetry_server_name = var.kong_cluster_telemetry_server_name
   initials                           = var.initials
 }
-

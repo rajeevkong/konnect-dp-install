@@ -52,7 +52,35 @@ resource "aws_security_group" "ecs_sg" {
   name        = "${var.initials}-ecs-sg"
   description = "Allow traffic to ECS containers"
   vpc_id      = var.vpc_id
-ingress {
+
+  ingress {
+    from_port       = 8000
+    to_port         = 8000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.lb_sg.id]
+  }
+
+  ingress {
+    from_port       = 8100
+    to_port         = 8100
+    protocol        = "tcp"
+    security_groups = [aws_security_group.lb_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "lb_sg" {
+  name        = "${var.initials}-lb-sg"
+  description = "Allow traffic to the Load Balancer"
+  vpc_id      = var.vpc_id
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -60,15 +88,8 @@ ingress {
   }
 
   ingress {
-    from_port   = 8000
-    to_port     = 8000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 8100
-    to_port     = 8100
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -85,8 +106,8 @@ resource "aws_lb" "ecs_lb" {
   name               = "${var.initials}-ecs-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.ecs_sg.id]
-  subnets            = var.subnet_ids
+  security_groups    = [aws_security_group.lb_sg.id]
+  subnets            = var.public_subnet_ids
 
   enable_deletion_protection = false
 }
@@ -225,15 +246,11 @@ resource "aws_ecs_service" "main" {
   }
 
   network_configuration {
-    assign_public_ip = true
-    subnets          = var.subnet_ids
+    assign_public_ip = false
+    subnets          = var.private_subnet_ids
     security_groups  = [aws_security_group.ecs_sg.id]
   }
 
   depends_on = [aws_lb_listener.http]
-}
-
-output "alb_dns_name" {
-  value = aws_lb.ecs_lb.dns_name
 }
 

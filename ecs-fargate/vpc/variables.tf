@@ -1,5 +1,4 @@
 
-
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC"
   type        = string
@@ -21,5 +20,10 @@ variable "private_subnet_cidrs" {
 variable "availability_zones" {
   description = "The availability zones in the region"
   type        = list(string)
+}
+
+variable "initials" {
+  description = "Initials to prepend to the names of all created resources"
+  type        = string
 }
 

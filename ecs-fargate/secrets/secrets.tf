@@ -1,6 +1,6 @@
 
 resource "aws_secretsmanager_secret" "kong_cluster_cert" {
-  name = "${var.initials}-15-kong-cluster-cert"
+  name = "${var.initials}-kong-cluster-cert"
 }
 
 resource "aws_secretsmanager_secret_version" "kong_cluster_cert_version" {
@@ -9,7 +9,7 @@ resource "aws_secretsmanager_secret_version" "kong_cluster_cert_version" {
 }
 
 resource "aws_secretsmanager_secret" "kong_cluster_cert_key" {
-  name = "${var.initials}-15-kong-cluster-cert-key"
+  name = "${var.initials}-kong-cluster-cert-key"
 }
 
 resource "aws_secretsmanager_secret_version" "kong_cluster_cert_key_version" {
