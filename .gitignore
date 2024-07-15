@@ -11,7 +11,7 @@ ecs-fargate/pulumi/*.pyc
 ecs-fargate/pulumi/*.pyo
 ecs-fargate/pulumi/*.pyd
 ecs-fargate/pulumi/Pulumi.*.yaml
-ecs-fargate/pulumi/.create-temp.sh
+ecs-fargate/pulumi/create-local.sh
 # Ignore virtual environment directory
 ecs-fargate/pulumi/venv/
 
