@@ -43,7 +43,8 @@ You should see an output like this
   "public_subnet2_id": "subnet-ddddddddddddddddd",
   "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:AWCSOMETHING:targetgroup/INITIALS-tg-5bfe3b6/73962fd91379ede0",
   "vpc_id": "vpc-eeeeeeeeeeeeeeee"
-}```
+}
+```
 
 #### Testing
 
