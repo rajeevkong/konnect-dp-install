@@ -1,3 +1,3 @@
 ## Konnect Dataplane installation
 
-1. [ECS-Fargate](./ecs-fargate/README.md)
+1. [Terraform ECS-Fargate](./ecs-fargate/terraform/README.md)

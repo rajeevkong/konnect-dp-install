@@ -1,0 +1,11 @@
+name: konnect-dp-ecs-fargate
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+description: Launch konnect dp in  in ecs fargate
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-python
