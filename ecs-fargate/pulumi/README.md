@@ -1,11 +1,29 @@
 ## Pulumi Setup
 
+#### Create a Data Plane node
+
+Create a [control plane](https://cloud.konghq.com/gateway-manager)
+
+- Navigate to the control plane for which you want to add the data plane.
+- Navigate to `Data Plane Nodes` on the left hand navigation.
+- Click on `New Data Plane Node`.
+- Select the `gateway version`.
+- Select the `Platform`. Pick any one. Make a note of the following fields
+
+    ```yml
+      cluster_control_plane: XXX.us.cp0.konghq.com:443
+      cluster_server_name: XXX.us.cp0.konghq.com
+      cluster_telemetry_endpoint: XXX.us.tp0.konghq.com:443
+      cluster_telemetry_server_name: XXX.us.tp0.konghq.com
+    ```
+
+- Save the certifcates (crt, key) to a local folder under someplace safe.
 
 Update the `create.sh` file with the following entries
 
 ```python
 pulumi config set initials YOUR_INITIALS
-pulumi config set crtFilePath /path/to/crt/file 
+pulumi config set crtFilePath /path/to/crt/file
 pulumi config set keyFilePath /path/to/key/file
 pulumi config set awsRegion us-east-1
 
@@ -22,7 +40,7 @@ The initials are used to create the required objects in AWS.
 Installing the DP
 run `./create.sh`
 
-#### Output 
+#### Output
 
 You should see an output like this
 

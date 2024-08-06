@@ -16,6 +16,35 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
+resource "aws_iam_role_policy" "ecs_task_execution_policy" {
+  name = "${var.initials}-ecs-task-execution-policy"
+  role = aws_iam_role.ecs_task_execution_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ],
+        Effect = "Allow",
+        Resource = [
+          "${var.kong_cluster_cert_arn}",
+          "${var.kong_cluster_cert_key_arn}"
+        ]
+      },
+      {
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Effect   = "Allow",
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
@@ -24,24 +53,6 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 resource "aws_cloudwatch_log_group" "ecs_log_group" {
   name              = "/ecs/${var.initials}-kong-gateway"
   retention_in_days = 7
-}
-
-data "aws_secretsmanager_secret" "kong_cluster_cert" {
-  arn = var.kong_cluster_cert_arn
-}
-
-data "aws_secretsmanager_secret_version" "kong_cluster_cert_version" {
-  secret_id  = data.aws_secretsmanager_secret.kong_cluster_cert.id
-  version_id = var.kong_cluster_cert_version_id
-}
-
-data "aws_secretsmanager_secret" "kong_cluster_cert_key" {
-  arn = var.kong_cluster_cert_key_arn
-}
-
-data "aws_secretsmanager_secret_version" "kong_cluster_cert_key_version" {
-  secret_id  = data.aws_secretsmanager_secret.kong_cluster_cert_key.id
-  version_id = var.kong_cluster_cert_key_version_id
 }
 
 resource "aws_ecs_cluster" "main" {
@@ -209,14 +220,6 @@ resource "aws_ecs_task_definition" "main" {
         value = var.kong_cluster_telemetry_server_name
       },
       {
-        name  = "KONG_CLUSTER_CERT"
-        value = data.aws_secretsmanager_secret_version.kong_cluster_cert_version.secret_string
-      },
-      {
-        name  = "KONG_CLUSTER_CERT_KEY"
-        value = data.aws_secretsmanager_secret_version.kong_cluster_cert_key_version.secret_string
-      },
-      {
         name  = "KONG_LUA_SSL_TRUSTED_CERTIFICATE"
         value = "system"
       },
@@ -227,6 +230,16 @@ resource "aws_ecs_task_definition" "main" {
       {
         name  = "KONG_STATUS_LISTEN"
         value = "0.0.0.0:8100"
+      }
+    ]
+    secrets = [
+      {
+        name      = "KONG_CLUSTER_CERT"
+        valueFrom = var.kong_cluster_cert_arn
+      },
+      {
+        name      = "KONG_CLUSTER_CERT_KEY"
+        valueFrom = var.kong_cluster_cert_key_arn
       }
     ]
   }])
@@ -253,4 +266,3 @@ resource "aws_ecs_service" "main" {
 
   depends_on = [aws_lb_listener.http]
 }
-

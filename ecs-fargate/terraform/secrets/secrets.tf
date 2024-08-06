@@ -1,4 +1,3 @@
-
 resource "aws_secretsmanager_secret" "kong_cluster_cert" {
   name = "${var.initials}-kong-cluster-cert"
 }
@@ -16,4 +15,3 @@ resource "aws_secretsmanager_secret_version" "kong_cluster_cert_key_version" {
   secret_id     = aws_secretsmanager_secret.kong_cluster_cert_key.id
   secret_string = file(var.kong_cluster_cert_key_path)
 }
-

@@ -18,22 +18,32 @@ output "ecs_service_name" {
   value = module.ecs.ecs_service_name
 }
 
-output "kong_cluster_cert_arn" {
-  value = module.secrets.kong_cluster_cert_arn
-}
+# output "kong_cluster_cert_arn" {
+#   value = module.secrets.kong_cluster_cert_arn
+# }
 
-output "kong_cluster_cert_version_id" {
-  value = module.secrets.kong_cluster_cert_version_id
-}
+# output "kong_cluster_cert_version_id" {
+#   value = module.secrets.kong_cluster_cert_version_id
+# }
 
-output "kong_cluster_cert_key_arn" {
-  value = module.secrets.kong_cluster_cert_key_arn
-}
+# output "kong_cluster_cert_key_arn" {
+#   value = module.secrets.kong_cluster_cert_key_arn
+# }
 
-output "kong_cluster_cert_key_version_id" {
-  value = module.secrets.kong_cluster_cert_key_version_id
-}
+# output "kong_cluster_cert_key_version_id" {
+#   value = module.secrets.kong_cluster_cert_key_version_id
+# }
 output "alb_dns_name" {
   description = "The DNS name of the ALB"
   value       = module.ecs.alb_dns_name
+}
+output "control_plane_endpoint" {
+  value = module.konnect.control_plane_endpoint
+}
+
+output "telemetry_endpoint" {
+  value = module.konnect.telemetry_endpoint
+}
+output "control_plane_id" {
+  value = module.konnect.control_plane_id
 }

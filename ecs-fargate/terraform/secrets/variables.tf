@@ -13,4 +13,3 @@ variable "initials" {
   description = "Initials to prepend to the names of all created resources"
   type        = string
 }
-
