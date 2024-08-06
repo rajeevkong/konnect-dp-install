@@ -8,7 +8,7 @@
 
 > This script will create a VPC, NAT GW etc so please tailor this accordingly.
 
-I am using [saml2aws](https://github.com/Versent/saml2aws). The [create](./ecs-fargate/create.sh) and [destroy](./ecs-fargate/destroy.sh) scripts assumes you have 2FA enabled. So please make changes accordingly.
+I am using [saml2aws](https://github.com/Versent/saml2aws). The [create (for terraform)](./ecs-fargate/terraform/create.sh) and [destroy](./ecs-fargate/terraform/destroy.sh) scripts assumes you have 2FA enabled. So please make changes accordingly.
 
 One thing you will need is the SSO URL for configuring sam2aws.
 

@@ -1,6 +1,6 @@
 # Local .terraform directories
 ecs-fargate/terraform/.terraform/*
-
+.DS_Store
 # Ignore Terraform files and directories
 ecs-fargate/terraform/.terraform/
 ecs-fargate/terraform/terraform.tfvars
